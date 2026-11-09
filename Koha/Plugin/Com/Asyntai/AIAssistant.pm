@@ -15,13 +15,13 @@ use C4::Context;
 
 use Koha::Plugin::Com::Asyntai::AIAssistant::Settings;
 
-our $VERSION  = '1.0.2';
+our $VERSION  = '1.0.3';
 our $metadata = {
     name            => 'Asyntai AI Assistant',
     author          => 'Asyntai',
     date_authored   => '2026-11-07',
     date_updated    => '2026-11-07',
-    minimum_version => '24.11.00.000',
+    minimum_version => '24.11.00',
     version         => $VERSION,
     license         => 'GPL-3.0',
     description     => 'Adds the Asyntai AI chat to your public catalog. It answers your patrons from your own library content.',
