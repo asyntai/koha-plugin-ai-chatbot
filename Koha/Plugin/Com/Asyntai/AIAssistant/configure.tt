@@ -1,0 +1,86 @@
+[% USE raw %]
+[% PROCESS 'i18n.inc' %]
+[% SET footerjs = 1 %]
+[% INCLUDE 'doc-head-open.inc' %]
+<title>[% FILTER collapse %]
+    [% t('Asyntai AI Assistant') | html %] &rsaquo;
+    [% t('Plugins') | html %] &rsaquo;
+    [% t('Koha') | html %]
+[% END %]</title>
+[% INCLUDE 'doc-head-close.inc' %]
+</head>
+
+<body id="asyntai_plugin_configure" class="plugin">
+    [% WRAPPER 'header.inc' %]
+        [% INCLUDE 'prefs-admin-search.inc' %]
+    [% END %]
+
+    [% WRAPPER 'sub-header.inc' %]
+        [% WRAPPER breadcrumbs %]
+            [% WRAPPER breadcrumb_item %]
+                <a href="/cgi-bin/koha/plugins/plugins-home.pl">[% t('Plugins') | html %]</a>
+            [% END %]
+            [% WRAPPER breadcrumb_item bc_active= 1 %]
+                <span>[% t('Asyntai AI Assistant') | html %]</span>
+            [% END %]
+        [% END %]
+    [% END %]
+
+    <div class="main container-fluid">
+        <div class="row">
+            <div class="col-md-10 offset-md-1">
+                <main>
+                    <h1>[% t('Asyntai AI Assistant') | html %]</h1>
+
+                    [% IF saved %]
+                        <div class="alert alert-info" id="asyntai_saved">[% t('Your settings are saved.') | html %]</div>
+                    [% END %]
+                    [% IF error_widget_id %]
+                        <div class="alert alert-warning" id="asyntai_error_widget_id">[% t('This is not an Asyntai widget ID. Nothing is saved.') | html %]</div>
+                    [% END %]
+                    [% IF error_script_url %]
+                        <div class="alert alert-warning" id="asyntai_error_script_url">[% t('The widget script address must be an https address. Nothing is saved.') | html %]</div>
+                    [% END %]
+
+                    <p>
+                        [% t('Your patrons chat with an AI assistant in your public catalog. It answers from your own library content.') | html %]
+                        <a href="[% guide_url | url %]" target="_blank" rel="noopener">[% t('Read the setup guide') | html %]</a>
+                    </p>
+
+                    <form method="post" action="/cgi-bin/koha/plugins/run.pl">
+                        [% INCLUDE 'csrf-token.inc' %]
+                        <input type="hidden" name="class" value="[% class | html %]" />
+                        <input type="hidden" name="method" value="[% method | html %]" />
+                        <input type="hidden" name="op" value="cud-save" />
+
+                        <fieldset class="rows">
+                            <ol>
+                                <li>
+                                    <label for="widget_id">[% t('Widget ID:') | html %]</label>
+                                    <input type="text" id="widget_id" name="widget_id" size="40" placeholder="asyntai_ab12cd34" value="[% widget_id | html %]" />
+                                    <div class="hint">[% t('Find it in your Asyntai dashboard. You can paste the whole snippet. An empty field switches the chat off.') | html %]</div>
+                                </li>
+                                <li>
+                                    <label for="guests_only">[% t('Guests only:') | html %]</label>
+                                    <input type="checkbox" id="guests_only" name="guests_only" value="1" [% IF guests_only %]checked="checked"[% END %] />
+                                    <div class="hint">[% t('Patrons who are signed in to the catalog do not see the chat.') | html %]</div>
+                                </li>
+                                <li>
+                                    <label for="script_url">[% t('Widget script address:') | html %]</label>
+                                    <input type="text" id="script_url" name="script_url" size="60" placeholder="[% default_script_url | html %]" value="[% script_url | html %]" />
+                                    <div class="hint">[% t('Change this only if Asyntai support asks you to.') | html %]</div>
+                                </li>
+                            </ol>
+                        </fieldset>
+
+                        <fieldset class="action">
+                            <input type="submit" class="btn btn-primary" id="asyntai_save" value="[% t('Save') | html %]" />
+                            <a class="cancel" href="/cgi-bin/koha/plugins/plugins-home.pl">[% t('Cancel') | html %]</a>
+                        </fieldset>
+                    </form>
+                </main>
+            </div>
+        </div>
+    </div>
+
+[% INCLUDE 'intranet-bottom.inc' %]
