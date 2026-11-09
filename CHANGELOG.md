@@ -4,6 +4,12 @@ All notable changes to this project are in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [1.0.1] - 2026-11-09
+
+### Changed
+
+- New release for the Koha Plugin Store. The code is the same as 1.0.0.
+
 ## [1.0.0] - 2026-11-07
 
 ### Added
