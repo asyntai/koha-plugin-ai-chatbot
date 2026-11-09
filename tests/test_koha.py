@@ -103,7 +103,7 @@ def main():
 
     home = staff.get(STAFF + "/cgi-bin/koha/plugins/plugins-home.pl", timeout=120).text
     check("plugin is listed", "Asyntai AI Assistant" in home)
-    check("version is listed", "1.0.1" in home)
+    check("version is listed", "1.0.2" in home)
     check("configure link is listed", "method=configure" in home and CLASS in home)
     check("license data does not break the list", "Internal Server Error" not in home)
 
